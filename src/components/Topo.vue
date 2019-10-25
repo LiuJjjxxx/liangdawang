@@ -1,78 +1,93 @@
-<template>
-    <div name='拓扑图'>
-        <div id='1001'>交换机1001</div>
-        <div id='1002'>服务器1002</div>
-        <div id='1003'>交换机1003</div>
-        <div id='1004'>AC1004</div>
-        <div id='1005'>路由器1005</div>
-
-    </div>
-</template>
-<script>
-export default {
-    data(){
-        return{
-            newdata:[],
-            olddata:[],
-            timeerOfRealtime:null,
-        }
-    },
-    methods: {
-        setcolor(data){
-            data.forEach(element => {
-                var pc = document.getElementById(element)
-                if(pc==null)
-                    return true
-                else{
-                    this.olddata.push(element)
-                    pc.classList.add("warn");
-                  }
-            })
+    <template>
+        <div class="Topo" name='拓扑图' >
+            <div class="Topo-con one" style="h">
+                <topoinfo class="inherit" :id="'1001'" :name="'用户'" :img="'user'" style="left:100px"></topoinfo>
+                <topoinfo class="inherit" :id="'1002'" :name="'互联网'"  :img="'yun'" style="left:450px"></topoinfo>
+                <topoinfo class="inherit" :id="'1003'" :name="'银行专线'" :img="'yun'" style="left:800px"></topoinfo>
+                <topoinfo class="inherit" :id="'1004'" :name="'前置交换机'" :img="'jiaohuanji'" style="left:450px;top:70px"></topoinfo>
+                <topoinfo class="inherit" :id="'1005'" :name="'防病毒网关'" :img="'fanghuoqiang'" style="left:450px;top:140px"></topoinfo>
+                <topoinfo class="inherit" :id="'1006'" :name="'生产防火墙'" :img="'fanghuoqiang'" style="left:450px;top:210px"></topoinfo>
+                <topoinfo class="inherit" :id="'1007'" :name="'内网交换机'" :img="'fanghuoqiang'" style="left:200px;top:280px"></topoinfo>
+                <topoinfo class="inherit" :id="'1008'" :name="'WEB应用防护系统'" :img="'fanghuoqiang'" style="left:700px;top:280px"></topoinfo>
+                <topoinfo class="inherit" :id="'1009'" :name="'数据库审计漏洞扫描'" :soild="false" :img="'fanghuoqiang'" style="left:30px;top:350px"></topoinfo>
+                <topoinfo class="inherit" :id="'1010'" :name="'堡垒机生产入侵检测'" :soild="false" :img="'fanghuoqiang'" style="left:200px;top:350px"></topoinfo>
+                <topoinfo class="inherit" :id="'1011'" :name="'核心光交换机'" :img="'fanghuoqiang'" style="left:370px;top:350px"></topoinfo>
+                <topoinfo class="inherit" :id="'1012'" :name="'DMZ交换机'" :img="'fanghuoqiang'" style="left:700px;top:350px"></topoinfo>
+                <topoinfo class="inherit" :id="'1013'" :name="'数据库集群'" :img="'fanghuoqiang'" style="left:370px;top:420px"></topoinfo>
+                <topoinfo class="inherit" :id="'1014'" :name="'刀片机箱'" :img="'fanghuoqiang'" style="left:600px;top:420px"></topoinfo>
+                <topoinfo class="inherit" :id="'1015'" :name="'负载均衡器'" :img="'fanghuoqiang'" :soild="false" style="left:800px;top:420px"></topoinfo>
+                <topoinfo class="inherit" :id="'1016'" :name="'存储交换机'" :img="'fanghuoqiang'" style="left:370px;top:490px"></topoinfo>
+                <topoinfo class="inherit" :id="'1017'" :name="'数据库存储'" :soild="false" :img="'fanghuoqiang'" style="left:370px;top:560px"></topoinfo>
+                <topoinfo class="inherit" :id="'1018'" :name="'业务应用存储'" :soild="false"  :img="'fanghuoqiang'" style="left:600px;top:560px"></topoinfo>
+            </div>
+            
+        </div>
+    </template>
+    <script>
+    import topoinfo from '@/components/TopoInfo' 
+    export default {
+        data(){
+            return{
+                newdata:[],
+                olddata:[],
+                timeerOfRealtime:null,
+            }
         },
-        delcolor(data){
-            this.olddata = data
-            data.forEach(element => {
-                var pc = document.getElementById(element)
-                pc.classList.remove("warn");
-            })
-            this.olddata = []
+        components:{
+                topoinfo
         },
-        setIntervalOfRealTime(){
-            var uthis = this;
-            clearInterval(uthis.timeerOfRealtime);
-            uthis.timeerOfRealtime = setInterval(() => {
-                fetch('../../static/data.txt',{
-                    method:'get'
-                }).then(rs=>{
-                    return rs.json()
-                }).then(data=>{
-                    uthis.newdata=data.data[0]
+        methods: {
+            setcolor(data){
+                data.forEach(element => {
+                    var pc = document.getElementById(element)
+                    if(pc==null)
+                        return true
+                    else{
+                        this.olddata.push(element)
+                        pc.classList.add("warn");
+                    }
                 })
-                this.delcolor(uthis.olddata)
-                this.setcolor(uthis.newdata)
-                uthis.newdata = []
-            },3000);
+            },
+            delcolor(data){
+                this.olddata = data
+                data.forEach(element => {
+                    var pc = document.getElementById(element)
+                    pc.classList.remove("warn");
+                })
+                this.olddata = []
+            },
+            setIntervalOfRealTime(){
+                var uthis = this;
+                clearInterval(uthis.timeerOfRealtime);
+                uthis.timeerOfRealtime = setInterval(() => {
+                    fetch('../../static/data.txt',{
+                        method:'get'
+                    }).then(rs=>{
+                        return rs.json()
+                    }).then(data=>{
+                        uthis.newdata=data.data[0]
+                    })
+                    this.delcolor(uthis.olddata)
+                    this.setcolor(uthis.newdata)
+                    uthis.newdata = []
+                },3000);
+            }
+        },
+        mounted(){
+            this.setIntervalOfRealTime()
         }
-    },
-    mounted(){
-        this.setIntervalOfRealTime()
     }
-}
-</script>
-<style scoped>
-div{
-    background: white;
-}
-.warn{
-    background: red;
-    /* animation: warn 0.5s infinite alternate */
-}
-@keyframes warn {
-    0%{
-        background: red
+    </script>
+    <style scoped>
+    .Topo{
+        position: relative;
+        width: 100%;
     }
-    100%{
-        background: white
+    .Topo-con{
+        position: absolute;
     }
-}
-</style>
+    .inherit{
+        position: inherit;
+    }
+
+    </style>

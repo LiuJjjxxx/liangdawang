@@ -20,15 +20,18 @@
                 <box :name="name[3]" :color="color[3]"></box>
                 <box :name="name[4]" :color="color[4]"></box>
             </div>
-            <span class="border row1"></span>
+            <span class="border row1" style="border-radis"></span>
             <span class="border row2"></span>
             <span class="border col1"></span>
             <span class="border col2"></span>
           </div>
         </div>
         <div class="center">
-        <!-- <topo></topo> -->
-
+        <topo></topo>
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
         </div>
         <div class="right" style="padding-left:30px">
           <h2 style="color:white;margin:0 0 10px 0">故障信息分类</h2>
@@ -82,7 +85,7 @@
 <script>
 import wancount from '@/components/WarnCount'
 import box from '@/components/Box'
-import fault from '@/components/fault'
+import fault from '@/components/Fault'
 import flow from '@/components/Flow'
 import faultInformation from '@/components/FaultInformation'
 import faultInLeave from '@/components/FaultInLeave'
@@ -164,7 +167,7 @@ export default {
   flex: 5.5;
   width: 100%;
   height: 600px;
-  /* background: yellow */
+  background: rgba(35, 19, 179, 0.075);
 }
 .left-one{
   width: 100%;
