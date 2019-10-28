@@ -4,7 +4,6 @@
             <p style="color:white;margin-top:20px;font-size:10px">{{name}}</p>
         </div>
         <img :src="'../../static/img/topo/'+img+'.png'">
-        <div :id=id v-if="soild != false" class="soild"></div>
     </div>
 </template>
 <script>
@@ -20,7 +19,13 @@ export default {
     height: 40px;
     background:rgba(63, 81, 181, .1);
     border-radius: 10px;
-    border: 2px solid rgb(31, 187, 122,.5)
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgb(15, 201, 86);
+
+}
+.bg:hover{
+    border: 2px solid rgba(68, 184, 22, 0.5);
+    box-shadow: 0 0 10px rgb(0, 255, 98);
 }
 img{
     position: absolute;
@@ -30,7 +35,13 @@ img{
     height: 50%;
 }
 .warn{
-    border: 2px solid rgba(187, 41, 31, 0.5)
+    border: 2px solid rgba(202, 38, 26, 0.8);
+    box-shadow: 0 0 10px rgb(236, 5, 5);
+
+}
+.warn:hover{
+    border: 2px solid rgba(187, 41, 31, 1);
+    box-shadow: 0 0 10px rgb(255, 0, 0);
 }
 .soild{
     top: 100%;
@@ -43,6 +54,7 @@ img{
     width: 10px;
     height: 10px;
     background: red;
+
 }
 @keyframes bordercolor {
     0%{

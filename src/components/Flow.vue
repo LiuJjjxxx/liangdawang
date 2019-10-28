@@ -15,21 +15,39 @@ export default {
 		var option = {
     xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['10-21', '10-22', '10-23', '10-24', '10-25', '10-26', '10-27']
     },
     yAxis: {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+                 formatter: '{value} kb'
+            }
+    },
+    legend:{
+      data:['本月'],
+      x:'right',
+      textStyle:{//图例文字的样式
+            color:'#fff',
+        }
     },
     series: [{
         data: [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line',
-        smooth: true
+        smooth: true,
+        name:'本月',
+        itemStyle : {
+                normal : {
+                  lineStyle:{
+                    color:'#56b0f0'
+                  }
+                }
+              }, 
     }],
     grid:{
         top:'10',
         bottom:'25',
-        left:'50',
-        right:'60',
+        left:'60',
+        right:'65',
     }
 };
 

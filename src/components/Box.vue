@@ -12,6 +12,7 @@ export default {
 </script>
 <style scoped>
 .box{
+  border-radius: 10px;
   padding-top: 10px;
   text-align: center;
   margin-left: 25px;
