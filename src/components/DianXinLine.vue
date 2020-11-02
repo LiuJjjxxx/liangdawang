@@ -2,8 +2,8 @@
   <div>
     <p style="color: white;
     padding: 5px 10px;
-    border-bottom: 1px solid rgb(103, 101, 101);
-    margin: 2px 0px;">流量趋势监控</p>
+    font-size:25px;
+    margin: 2px 0px;text-align:center;">电信流量趋势监控</p>
     <div id="bbb"
          style="width: 100%;height:300px;"></div>
   </div>
@@ -19,7 +19,7 @@ export default {
       data2: [],
       realTimeInvokeOption: {
         legend: {
-          data: ['上行流量']
+          data: ['上行流量', '下行流量']
         },
         xAxis: {
           boundaryGap: false,
@@ -39,15 +39,17 @@ export default {
         yAxis: [
           {
             name: '总速率(mb)',
-            type: 'value'
+            type: 'value',
+            nameTextStyle: {
+              fontSize: 10
+            }
           }
         ],
 
         grid: {
-          left: '3%',
+          left: '10%',
           right: '4%',
-          bottom: '8%',
-          containLabel: true
+          bottom: '25%'
         },
         series: [
           {
@@ -68,6 +70,32 @@ export default {
                 }
               ])
             }
+          },
+          {
+            name: '下行流量',
+            data: [],
+            stack: '总量',
+            type: 'line',
+            smooth: false,
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  color: '#f37f04'
+                }
+              }
+            },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: '#f37f04'
+                },
+                {
+                  offset: 1,
+                  color: '#f5a85880'
+                }
+              ])
+            }
           }
         ]
       },
@@ -80,12 +108,24 @@ export default {
       var uthis = this
       clearInterval(uthis.timeerOfRealtime)
       uthis.timeerOfRealtime = setInterval(() => {
+        //39820
+        uthis.$http.ZabbixFlowValue(44398).then(function(data) {
+          var newData = data.reverse()
+          newData = newData.splice(0, 9)
+          newData.forEach(element => {
+            var nv = element.value_avg / 1048576
+            nv = nv.toFixed(2)
+            uthis.data2.push(nv)
+          })
+        })
         //39800
         uthis.$http
-          .ZabbixFlowValue(39800)
+          .ZabbixFlowValue(44440)
           .then(function(data) {
-            data.forEach(element => {
-              var nv = element.value / 1048576
+            var newData = data.reverse()
+            newData = newData.splice(0, 9)
+            newData.forEach(element => {
+              var nv = element.value_avg / 1048576
               nv = nv.toFixed(2)
               uthis.data1.push(nv)
               var time = new Date(element.clock * 1000) + ''
@@ -98,10 +138,14 @@ export default {
               series: [
                 {
                   data: uthis.data1.reverse()
+                },
+                {
+                  data: uthis.data2.reverse()
                 }
               ]
             })
             uthis.data1 = []
+            uthis.data2 = []
             uthis.time = []
           })
           .catch(function(error) {

@@ -1,95 +1,219 @@
     <template>
-        <div class="Topo" name='拓扑图' >
-            <div class="Topo-con one" style="h">
-                <topoinfo class="inherit" :id="'1001'" :name="'用户'" :img="'user'" style="left:200px"></topoinfo>
-                <topoinfo class="inherit" :id="'1002'" :name="'互联网'"  :img="'yun'" style="left:450px"></topoinfo>
-                <topoinfo class="inherit" :id="'1003'" :name="'银行专线'" :img="'yun'" style="left:700px"></topoinfo>
-                <topoinfo class="inherit" :id="'1004'" :name="'前置交换机'" :img="'jiaohuanji'" style="left:450px;top:70px"></topoinfo>
-                <topoinfo class="inherit" :id="'1005'" :name="'防病毒网关'" :img="'fanghuoqiang'" style="left:450px;top:140px"></topoinfo>
-                <topoinfo class="inherit" :id="'1006'" :name="'生产防火墙'" :img="'fanghuoqiang'" style="left:450px;top:210px"></topoinfo>
-                <topoinfo class="inherit" :id="'1007'" :name="'内网交换机'" :img="'jiaohuanji'" style="left:200px;top:280px"></topoinfo>
-                <topoinfo class="inherit" :id="'1008'" :name="'WEB应用防护系统'" :img="'fanghu'" style="left:700px;top:280px"></topoinfo>
-                <topoinfo class="inherit" :id="'1009'" :name="'数据库审计漏洞扫描'"  :img="'fuwuqi'" style="left:30px;top:350px"></topoinfo>
-                <topoinfo class="inherit" :id="'1010'" :name="'堡垒机生产入侵检测'"  :img="'fuwuqi'" style="left:200px;top:350px"></topoinfo>
-                <topoinfo class="inherit" :id="'1011'" :name="'核心光交换机'" :img="'jiaohuanji'" style="left:370px;top:350px"></topoinfo>
-                <topoinfo class="inherit" :id="'1012'" :name="'DMZ交换机'" :img="'jiaohuanji'" style="left:700px;top:350px"></topoinfo>
-                <topoinfo class="inherit" :id="'1013'" :name="'数据库集群'" :img="'jiqun'" style="left:370px;top:420px"></topoinfo>
-                <topoinfo class="inherit" :id="'1014'" :name="'刀片机箱'" :img="'jixiang'" style="left:600px;top:420px"></topoinfo>
-                <topoinfo class="inherit" :id="'1015'" :name="'负载均衡器'" :img="'fanghuoqiang'"  style="left:800px;top:420px"></topoinfo>
-                <topoinfo class="inherit" :id="'1016'" :name="'存储交换机'" :img="'jiaohuanji'" style="left:370px;top:490px"></topoinfo>
-                <topoinfo class="inherit" :id="'1017'" :name="'数据库存储'" :img="'shujuku'" style="left:370px;top:560px"></topoinfo>
-                <topoinfo class="inherit" :id="'1018'" :name="'业务应用存储'"  :img="'shujuku'" style="left:600px;top:560px"></topoinfo>
-            </div>
-            <line_pc></line_pc>
-        </div>
-    </template>
-    <script>
-    import topoinfo from '@/components/TopoInfo' 
-    import line_pc from '@/components/Line' 
+  <div class="Topo"
+       name='拓扑图'>
+    <div class="Topo-con one"
+         style="h">
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:10px;top:120px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:10px;top:280px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:10px;top:440px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'38'"
+                :name="'服务器接入'"
+                :img="'fuwuqi'"
+                style="left:190px;top:280px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'核心交换机'"
+                :img="'jiaohuanji'"
+                style="left:360px;top:280px"></topoinfo>
 
-    export default {
-        data(){
-            return{
-                newdata:[],
-                olddata:[],
-                timeerOfRealtime:null,
-            }
-        },
-        components:{
-                topoinfo,
-                line_pc
-        },
-        methods: {
-            setcolor(data){
-                data.forEach(element => {
-                    var pc = document.getElementById(element)
-                    if(pc==null)
-                        return true
-                    else{
-                        this.olddata.push(element)
-                        pc.classList.add("warn");
-                    }
-                })
-            },
-            delcolor(data){
-                this.olddata = data
-                data.forEach(element => {
-                    var pc = document.getElementById(element)
-                    pc.classList.remove("warn");
-                })
-                this.olddata = []
-            },
-            setIntervalOfRealTime(){
-                var uthis = this;
-                clearInterval(uthis.timeerOfRealtime);
-                uthis.timeerOfRealtime = setInterval(() => {
-                    fetch('../../static/data.txt',{
-                        method:'get'
-                    }).then(rs=>{
-                        return rs.json()
-                    }).then(data=>{
-                        uthis.newdata=data.data[0]
-                    })
-                    this.delcolor(uthis.olddata)
-                    this.setcolor(uthis.newdata)
-                    uthis.newdata = []
-                },3000);
-            },
-        },
-        mounted(){
-            this.setIntervalOfRealTime()
+      <topoinfo class="inherit"
+                :id="'30'"
+                :name="'门诊'"
+                :img="'jiaohuanji'"
+                style="left:210px;top:500px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'36'"
+                :name="'医技'"
+                :img="'jiaohuanji'"
+                style="left:310px;top:500px"></topoinfo>
+      <topoinfo opoinfo
+                class="inherit"
+                :id="'34'"
+                :name="'住院'"
+                :img="'jiaohuanji'"
+                style="left:410px;top:500px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'32'"
+                :name="'行政'"
+                :img="'jiaohuanji'"
+                style="left:510px;top:500px"></topoinfo>
+
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'内外网隔离防火墙'"
+                :img="'fanghuoqiang'"
+                :width="120"
+                :left='35'
+                style="left:580px;top:100px"></topoinfo>
+
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'边界防火墙'"
+                :img="'fanghuoqiang'"
+                style="left:360px;top:150px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'边界防火墙'"
+                :img="'fanghuoqiang'"
+                style="left:840px;top:150px"></topoinfo>
+
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'专线-电信'"
+                :img="'yun'"
+                style="left:360px;top:20px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'专线-电信'"
+                :img="'yun'"
+                style="left:840px;top:20px"></topoinfo>
+
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:1180px;top:120px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:1180px;top:280px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'服务器'"
+                :img="'server'"
+                style="left:1180px;top:440px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'39'"
+                :name="'服务器接入'"
+                :img="'fuwuqi'"
+                style="left:1010px;top:280px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'10360'"
+                :name="'核心交换机'"
+                :img="'jiaohuanji'"
+                style="left:840px;top:280px"></topoinfo>
+
+      <topoinfo class="inherit"
+                :id="'31'"
+                :name="'门诊'"
+                :img="'jiaohuanji'"
+                style="left:690px;top:500px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'37'"
+                :name="'医技'"
+                :img="'jiaohuanji'"
+                style="left:790px;top:500px"></topoinfo>
+      <topoinfo class="inherit"
+                :id="'35'"
+                :name="'住院'"
+                :img="'jiaohuanji'"
+                style="left:890px;top:500px"></topoinfo>
+      <topoinfo class="inherit" 
+                :id="'33'"
+                :name="'行政'"
+                :img="'jiaohuanji'"
+                style="left:990px;top:500px"></topoinfo>
+
+    </div>
+
+  </div>
+</template>
+    <script>
+import topoinfo from '@/components/TopoInfo'
+
+var post = {
+  jsonrpc: '2.0',
+  method: 'trigger.get',
+  params: {
+    output: [],
+    filter: {
+      value: 1
+    },
+    sortfield: 'priority',
+    sortorder: 'DESC',
+    selectHosts: ['host'],
+    selectGroups: ['group']
+  },
+  auth: 'd93f80f6651f7f28d19ec60ac46fabbc',
+  id: 1
+}
+export default {
+  data() {
+    return {
+      newdata: [],
+      olddata: [],
+      timeerOfRealtime: null
+    }
+  },
+  components: {
+    topoinfo
+  },
+  methods: {
+    setcolor(data) {
+      data.forEach(element => {
+        var pc = document.getElementById(element)
+        if (pc == null) return true
+        else {
+          this.olddata.push(element)
+          pc.classList.add('warn')
         }
+      })
+    },
+    delcolor(data) {
+      this.olddata = data
+      data.forEach(element => {
+        var pc = document.getElementById(element)
+        pc.classList.remove('warn')
+      })
+      this.olddata = []
+    },
+    setIntervalOfRealTime() {
+      var uthis = this
+      clearInterval(uthis.timeerOfRealtime)
+      uthis.timeerOfRealtime = setInterval(() => {
+        this.$http.Zabbix(post).then(data => {
+          console.log(data)
+          data.result.forEach(element => {
+            uthis.newdata.push(element.hosts[0].hostid)
+            uthis.newdata.push(element.groups[0].groupid)
+            uthis.newdata.push(element.groups[1].groupid)
+          })
+        })
+        this.delcolor(uthis.olddata)
+        this.setcolor(uthis.newdata)
+        uthis.newdata = []
+      }, 3000)
     }
-    </script>
+  },
+  mounted() {
+    this.setIntervalOfRealTime()
+  }
+}
+</script>
     <style scoped>
-    .Topo{
-        position: relative;
-        width: 100%;
-    }
-    .Topo-con{
-        position: absolute;
-    }
-    .inherit{
-        position: inherit;
-    }
-    </style>
+.Topo {
+  z-index: 101;
+  position: absolute;
+  width: 100%;
+}
+.Topo-con {
+  position: absolute;
+}
+.inherit {
+  position: inherit;
+}
+</style>
